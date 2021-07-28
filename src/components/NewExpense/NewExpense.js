@@ -4,29 +4,29 @@ import ExpenseForm from './ExpenseForm';
 import './NewExpense.css';
 
 const NewExpense = (props)=>{
-    const [addNewExpense, setAddNewExpense] = useState (true);
+    const [addNewExpense, setAddNewExpense] = useState (false);
     const saveExpenseDataHandler= (enteredExpenseData) =>{
         const expenseData = {
             ...enteredExpenseData,
             id: Math.random().toString()
         };
         props.onAddExpense(expenseData);
-        setAddNewExpense(true);
+        setAddNewExpense(false);
     };
 
     const addNewExpenseHandler = () =>{
-      setAddNewExpense(null);
+      setAddNewExpense(true);
     };
 
     const cancelHandler = ()=>{
-        setAddNewExpense(true);
+        setAddNewExpense(false);
     }
 
 
 return <div className='new-expense'>
 
-    {addNewExpense===!null ? <button onClick={addNewExpenseHandler}>Add New Expense</button> :
-    <ExpenseForm onSaveExpenseData={saveExpenseDataHandler} onCancelHandler={cancelHandler} />
+    {!addNewExpense && <button onClick={addNewExpenseHandler}>Add New Expense</button>}
+    {addNewExpense && <ExpenseForm onSaveExpenseData={saveExpenseDataHandler} onCancelHandler={cancelHandler} />
 }
 </div>
 };
